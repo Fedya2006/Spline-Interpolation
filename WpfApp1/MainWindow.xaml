@@ -1,0 +1,90 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="528" Width="1226" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <local:StrToSingle x:Key="StrSingle"/>
+        <local:StrToInt x:Key="StrInt"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.MeasuredData" CanExecute="MeasuredData_CanExecute" Executed="MeasuredData_Executed" />
+        <CommandBinding Command="local:CustomCommands.Splines" CanExecute="Splines_CanExecute" Executed="Splines_Executed" />
+    </Window.CommandBindings>
+
+    <Grid>
+        <Menu x:Name="menu" Grid.ColumnSpan="3">
+            <MenuItem Header="Menu">
+                <MenuItem Header="MeasuredData" Command="local:CustomCommands.MeasuredData"/>
+                <MenuItem Header="Splines" Command="local:CustomCommands.Splines"/>
+            </MenuItem>
+            <ToolBar Height="30" VerticalAlignment="Top">
+                <Button Command="local:CustomCommands.MeasuredData">MeasuredData</Button>
+                <Separator />
+                <Button Command="local:CustomCommands.Splines">Splines</Button>
+            </ToolBar>
+        </Menu>
+
+        <Grid HorizontalAlignment="Left" Height="462" Margin="470,10,0,0" VerticalAlignment="Top" Width="330">
+            <ComboBox Name ="Func_list" Margin="57,34,57,400" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding Path=sd.md.Function}" />
+            <TextBlock HorizontalAlignment="Center" Height="19" Margin="0,77,0,0" TextWrapping="Wrap" Text="        MeasuredData" VerticalAlignment="Top" Width="124" RenderTransformOrigin="0.509,0.476" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"/>
+            <TextBlock HorizontalAlignment="Center" Height="19" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Language="ru-ru" Text="       Функция"/></TextBlock>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="28,96,28,231">
+                <Grid HorizontalAlignment="Center"  Height="142" VerticalAlignment="Center" Width="254">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="53*"/>
+                        <RowDefinition Height="18*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" Height="18" Margin="10,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="88"><Run Language="ru-ru" Text="Левая граница"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Height="18" Margin="146,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98"><Run Language="ru-ru" Text="Правая граница"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" Height="17" Margin="0,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="88"><Run Language="ru-ru" Text="   "/><Run Text="Число узлов"/></TextBlock>
+
+                    <TextBox  HorizontalAlignment="Center" Height="21" Margin="0,75,0,0" TextWrapping="Wrap" Text="{Binding Path = sd.md.Length, Mode = TwoWay, Converter = {StaticResource StrInt}, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="88"/>
+                    <TextBox  HorizontalAlignment="Left" Height="19" Margin="10,38,0,0" TextWrapping="Wrap" Text="{Binding Path = sd.md.Left_border, Mode = TwoWay, Converter = {StaticResource StrSingle}, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="88"  />
+                    <TextBox  HorizontalAlignment="Left" Height="19" Margin="146,38,0,0" TextWrapping="Wrap" Text="{Binding Path = sd.md.Right_border, Mode = TwoWay, Converter = {StaticResource StrSingle}, ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="98" />
+                </Grid>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="185" Margin="0,267,0,0" VerticalAlignment="Top" Width="274"/>
+            <TextBlock HorizontalAlignment="Center" Height="22" Margin="0,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Language="ru-ru" Text="     "/><Run Text="SplineParameters"/></TextBlock>
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="530,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"><Run Language="ru-ru" Text="Левая граница"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="530,390,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"><Run Language="ru-ru" Text="Левая граница"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="503,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97"><Run Language="ru-ru" Text="Число узлов -"/><Run Text="&gt;"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="656,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"><Run Language="ru-ru" Text="Правая граница"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="656,390,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"><Run Language="ru-ru" Text="Правая граница"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="530,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="      "/><Run Language="ru-ru" Text=" "/><Run Text="Первый Сплайн"/><Run Text=" "/><Run Text="(производны"/><Run Text="е)"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="530,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="      "/><Run Text=" "/><Run Language="ru-ru" Text="Второй"/><Run Text=" Сплайн"/><Run Text=" "/><Run Text="(производны"/><Run Text="е)"/></TextBlock>
+        <TextBox  HorizontalAlignment="Left" Height="17" Margin="530,347,0,0" TextWrapping="Wrap" Text = "{Binding Path = sp.First_spline_left_border_derivative, Converter = {StaticResource StrSingle}, Mode = TwoWay}" VerticalAlignment="Top" Width="82" />
+        <TextBox  HorizontalAlignment="Left" Height="17" Margin="659,347,0,0" TextWrapping="Wrap" Text = "{Binding Path = sp.First_spline_right_border_derivative, Converter = {StaticResource StrSingle}, Mode = TwoWay}" VerticalAlignment="Top" Width="85"/>
+        <TextBox  HorizontalAlignment="Left" Height="20" Margin="530,409,0,0" TextWrapping="Wrap" Text = "{Binding Path = sp.Second_spline_left_border_derivative, Converter = {StaticResource StrSingle}, Mode = TwoWay}" VerticalAlignment="Top" Width="82" />
+        <TextBox  HorizontalAlignment="Left" Height="18" Margin="656,410,0,0" TextWrapping="Wrap" Text = "{Binding Path = sp.Second_spline_right_border_derivative, Converter = {StaticResource StrSingle}, Mode = TwoWay}" VerticalAlignment="Top" Width="88"/>
+        <TextBox  HorizontalAlignment="Left" Height="21" Margin="600,281,0,0" TextWrapping="Wrap" Text = "{Binding Path = sp.Length, Converter = {StaticResource StrInt}, ValidatesOnDataErrors=True, Mode = TwoWay}" VerticalAlignment="Top" Width="74" />
+        <ListBox HorizontalAlignment="Left" Height="141" Margin="44,60,0,0" VerticalAlignment="Top" Width="367" ItemsSource="{Binding MeasuredData}" IsSynchronizedWithCurrentItem="True"/>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="143,41,0,0" TextWrapping="Wrap" Text="       MeasuredData Output" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.509,0.476" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"></TextBlock>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="230" Margin="44,241,0,0" VerticalAlignment="Top" Width="380">
+            <Grid HorizontalAlignment="Center" Height="234" VerticalAlignment="Center" Width="366">
+                <ListBox HorizontalAlignment="Left" Height="84" Margin="0,32,0,0" VerticalAlignment="Top" Width="176" ItemsSource="{Binding Path=SplineValues1}" IsSynchronizedWithCurrentItem="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="22" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="Значения в 4 точках("/><Run Language="ru-ru" Text="Сплайн 1)"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Height="22" Margin="192,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="Значения в 4 точках("/><Run Text="Сплайн "/><Run Language="ru-ru" Text="2"/><Run Text=")"/></TextBlock>
+                <ListBox HorizontalAlignment="Left" Height="84" Margin="192,32,0,0" VerticalAlignment="Top" Width="174" ItemsSource="{Binding Path=SplineValues2}" IsSynchronizedWithCurrentItem="True"/>
+                <ListBox HorizontalAlignment="Left" Height="66" Margin="0,158,0,0" VerticalAlignment="Top" Width="176" ItemsSource="{Binding Path=Derivatives1}" IsSynchronizedWithCurrentItem="True"/>
+                <ListBox HorizontalAlignment="Left" Height="66" Margin="192,158,0,0" VerticalAlignment="Top" Width="174" ItemsSource="{Binding Path=Derivatives2}" IsSynchronizedWithCurrentItem="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="32" Margin="0,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="         Значения производных"/><LineBreak/><Run Text="                  "/><Run Language="ru-ru" Text=" "/><Run Text="(Спла"/><Run Text="йн"/><Run Text=" 1)"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Height="32" Margin="192,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"><Run Text="         Значения производных"/><LineBreak/><Run Text="                  "/><Run Text=" "/><Run Text="(Спла"/><Run Text="йн"/><Run Text=" "/><Run Language="ru-ru" Text="2"/><Run Text=")"/></TextBlock>
+
+            </Grid>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" Height="19" Margin="143,222,0,0" TextWrapping="Wrap" Text="          SplinesData Output" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.509,0.476" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}"/>
+
+        <Grid Name ="Oxyplot" HorizontalAlignment="Left" Height="382" Margin="800,90,0,0" VerticalAlignment="Top" Width="380">
+            <oxy:PlotView x:Name="plotView" Model="{Binding plotModel}" Height="382" VerticalAlignment="Center" />
+        </Grid>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "BniZY9yhMvAn2zzQscP0hWijHAay/C4SgBYBu44DxoxCx5jfpuj+3xzxZG9uGBdlFH0tEeOwTyU1RVEH4RSd9Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\glebi\\source\\repos\\Solution2\\WpfApp1\\WpfApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\glebi\\.nuget\\packages\\oxyplot.core\\2.1.0\\oxyplot.core.2.1.0.nupkg.sha512",
+    "C:\\Users\\glebi\\.nuget\\packages\\oxyplot.wpf\\2.1.0\\oxyplot.wpf.2.1.0.nupkg.sha512",
+    "C:\\Users\\glebi\\.nuget\\packages\\oxyplot.wpf.shared\\2.1.0\\oxyplot.wpf.shared.2.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
